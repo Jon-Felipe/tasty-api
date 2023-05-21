@@ -44,4 +44,8 @@ const login = async (req, res) => {
   });
 };
 
-module.exports = { register, login };
+const updateUser = async (req, res) => {
+  res.send('update user');
+};
+
+module.exports = { register, login, updateUser };

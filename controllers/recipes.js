@@ -1,3 +1,7 @@
+const { StatusCodes } = require('http-status-codes');
+const Recipe = require('../models/Recipe');
+const { UnauthenticatedError } = require('../errors');
+
 const getAllRecipes = async (req, res) => {
   res.send('getAllRecipes');
 };
@@ -7,7 +11,9 @@ const getRecipe = async (req, res) => {
 };
 
 const createRecipe = async (req, res) => {
-  res.send('create recipe');
+  req.body.author = req.user.userId;
+  const recipe = await Recipe.create(req.body);
+  res.status(StatusCodes.CREATED).json({ recipe });
 };
 
 const updateRecipe = async (req, res) => {

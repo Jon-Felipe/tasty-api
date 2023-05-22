@@ -1,9 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllRecipes, getRecipe } = require('../controllers/recipes');
+const authenticateUser = require('../middleware/authentication');
 
-router.route('/').get(getAllRecipes);
-router.route('/:id').get(getRecipe);
+const {
+  getAllRecipes,
+  getRecipe,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+} = require('../controllers/recipes');
+
+router.route('/').get(getAllRecipes).post(authenticateUser, createRecipe);
+router
+  .route('/:id')
+  .get(getRecipe)
+  .put(authenticateUser, updateRecipe)
+  .delete(authenticateUser, deleteRecipe);
 
 module.exports = router;

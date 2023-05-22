@@ -19,7 +19,7 @@ app.use(express.json());
 
 // routes
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/recipes', authenticateUser, recipesRouter);
+app.use('/api/v1/recipes', recipesRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

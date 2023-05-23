@@ -28,7 +28,19 @@ const updateRecipe = async (req, res) => {
 };
 
 const deleteRecipe = async (req, res) => {
-  res.send('delete recipe');
+  const {
+    user: { userId },
+    params: { id: recipeId },
+  } = req;
+
+  const recipe = await Recipe.findOneAndRemove({
+    _id: recipeId,
+    author: userId,
+  });
+  if (!recipe) {
+    throw new NotFoundError(`No recipe found with id: ${recipeId}`);
+  }
+  res.status(StatusCodes.OK).send();
 };
 
 module.exports = {

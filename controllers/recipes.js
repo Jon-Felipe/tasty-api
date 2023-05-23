@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const Recipe = require('../models/Recipe');
-const { UnauthenticatedError } = require('../errors');
+const { UnauthenticatedError, NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
   const recipes = await Recipe.find({});
@@ -8,7 +8,13 @@ const getAllRecipes = async (req, res) => {
 };
 
 const getRecipe = async (req, res) => {
-  res.send('getRecipe');
+  const { id: recipeId } = req.params;
+
+  const recipe = await Recipe.findById({ _id: recipeId });
+  if (!recipe) {
+    throw new NotFoundError(`No recipe found with id: ${recipeId}`);
+  }
+  res.status(StatusCodes.OK).json({ recipe });
 };
 
 const createRecipe = async (req, res) => {

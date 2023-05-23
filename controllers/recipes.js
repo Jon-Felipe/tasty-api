@@ -3,7 +3,8 @@ const Recipe = require('../models/Recipe');
 const { UnauthenticatedError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  res.send('getAllRecipes');
+  const recipes = await Recipe.find({});
+  res.status(StatusCodes.OK).json({ recipes: recipes, count: recipes.length });
 };
 
 const getRecipe = async (req, res) => {

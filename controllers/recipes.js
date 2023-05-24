@@ -23,10 +23,6 @@ const createRecipe = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ recipe });
 };
 
-const updateRecipe = async (req, res) => {
-  res.send('update recipe');
-};
-
 const deleteRecipe = async (req, res) => {
   const {
     user: { userId },
@@ -47,6 +43,5 @@ module.exports = {
   getAllRecipes,
   getRecipe,
   createRecipe,
-  updateRecipe,
   deleteRecipe,
 };

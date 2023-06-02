@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const Recipe = require('../models/Recipe');
-const { UnauthenticatedError, NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
   const recipes = await Recipe.find({});

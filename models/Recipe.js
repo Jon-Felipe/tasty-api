@@ -13,9 +13,9 @@ const RecipeSchema = new mongoose.Schema(
       required: [true, 'Please provide a description'],
       maxLength: [1000, 'Description can not be more than 1000 characters'],
     },
-    image: {
-      type: String,
-      default: '/uploads/example.jpeg',
+    numOfRatings: {
+      type: Number,
+      default: 0,
     },
     averageRating: {
       type: Number,
@@ -24,6 +24,29 @@ const RecipeSchema = new mongoose.Schema(
     numOfReviews: {
       type: Number,
       default: 0,
+    },
+    image: {
+      type: String,
+      default: '/uploads/example.jpeg',
+    },
+    recipeDetails: {
+      prepTime: { type: Number, default: 0 },
+      cookTime: { type: Number, default: 0 },
+      additionalTime: { type: Number, default: 0 },
+      totalTime: { type: Number, default: 0 },
+      servings: { type: Number, default: 0 },
+      yield: { type: Number, default: 0 },
+      difficulty: {
+        type: String,
+        enum: ['Easy', 'Medium', 'Hard'],
+        default: 'Easy',
+      },
+    },
+    nutritionFacts: {
+      calories: { type: Number, default: 0 },
+      fat: { type: Number, default: 0 },
+      carbs: { type: Number, default: 0 },
+      protein: { type: Number, default: 0 },
     },
     ingredients: {
       type: [String],

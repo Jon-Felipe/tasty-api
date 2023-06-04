@@ -10,7 +10,10 @@ const getAllRecipes = async (req, res) => {
 const getRecipe = async (req, res) => {
   const { id: recipeId } = req.params;
 
-  const recipe = await Recipe.findById({ _id: recipeId });
+  const recipe = await Recipe.findById({ _id: recipeId }).populate(
+    'author',
+    'name lastName'
+  );
   if (!recipe) {
     throw new NotFoundError(`No recipe found with id: ${recipeId}`);
   }

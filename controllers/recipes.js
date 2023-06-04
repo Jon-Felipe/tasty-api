@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const recipes = await Recipe.find({});
+  const recipes = await Recipe.find({}).populate('author', 'name lastName');
   res.status(StatusCodes.OK).json({ recipes: recipes, count: recipes.length });
 };
 

@@ -63,9 +63,9 @@ const RecipeSchema = new mongoose.Schema(
       type: [String],
     },
     author: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Please provide a user'],
+      required: true,
     },
   },
   { timestamps: true }

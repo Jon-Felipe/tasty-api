@@ -62,7 +62,7 @@ const RecipeSchema = new mongoose.Schema(
     recipeTips: {
       type: [String],
     },
-    author: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,

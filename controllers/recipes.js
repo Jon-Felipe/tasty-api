@@ -24,7 +24,10 @@ const getUserRecipes = async (req, res) => {
   const {
     user: { userId },
   } = req;
-  const recipes = await Recipe.find({ createdBy: userId });
+  const recipes = await Recipe.find({ createdBy: userId }).populate(
+    'createdBy',
+    'name lastName'
+  );
   res.status(StatusCodes.OK).json({ recipes });
 };
 

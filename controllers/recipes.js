@@ -20,6 +20,14 @@ const getRecipe = async (req, res) => {
   res.status(StatusCodes.OK).json({ recipe });
 };
 
+const getUserRecipes = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+  const recipes = await Recipe.find({ createdBy: userId });
+  res.status(StatusCodes.OK).json({ recipes });
+};
+
 const createRecipe = async (req, res) => {
   req.body.createdBy = req.user.userId;
   const recipe = await Recipe.create(req.body);
@@ -45,6 +53,7 @@ const deleteRecipe = async (req, res) => {
 module.exports = {
   getAllRecipes,
   getRecipe,
+  getUserRecipes,
   createRecipe,
   deleteRecipe,
 };

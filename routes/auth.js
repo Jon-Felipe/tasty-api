@@ -11,7 +11,9 @@ const {
 
 router.post('/register', register);
 router.post('/login', login);
-router.patch('/updateUser', authenticateUser, updateUser);
-router.delete('/', authenticateUser, deleteUser);
+router
+  .route('/')
+  .patch(authenticateUser, updateUser)
+  .delete(authenticateUser, deleteUser);
 
 module.exports = router;

@@ -69,4 +69,10 @@ const updateUser = async (req, res) => {
   });
 };
 
-module.exports = { register, login, updateUser };
+const deleteUser = async (req, res) => {
+  const { userId } = req.user;
+  await User.findByIdAndDelete(userId);
+  res.status(StatusCodes.OK).send();
+};
+
+module.exports = { register, login, updateUser, deleteUser };

@@ -43,13 +43,11 @@ const deleteRecipe = async (req, res) => {
     params: { id: recipeId },
   } = req;
 
-  const recipe = await Recipe.findOneAndRemove({
+  await Recipe.findOneAndRemove({
     _id: recipeId,
     createdBy: userId,
   });
-  if (!recipe) {
-    throw new NotFoundError(`No recipe found with id: ${recipeId}`);
-  }
+
   res.status(StatusCodes.OK).send();
 };
 

@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Recipe = require('../models/Recipe');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
 
@@ -71,7 +72,10 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { userId } = req.user;
+
+  await Recipe.deleteMany({ createdBy: userId });
   await User.findByIdAndDelete(userId);
+
   res.status(StatusCodes.OK).send();
 };
 

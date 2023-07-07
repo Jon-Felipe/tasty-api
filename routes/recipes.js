@@ -12,7 +12,7 @@ const {
 } = require('../controllers/recipes');
 
 router.route('/').get(getAllRecipes).post(authenticateUser, createRecipe);
-router.route('/my-recipes').get(authenticateUser, getUserRecipes);
+router.route('/user-recipes').get(authenticateUser, getUserRecipes);
 router.route('/:id').get(getRecipe).delete(authenticateUser, deleteRecipe);
 
 module.exports = router;

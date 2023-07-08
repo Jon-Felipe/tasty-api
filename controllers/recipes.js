@@ -17,6 +17,10 @@ const getAllRecipes = async (req, res) => {
     result = result.sort('name');
   }
 
+  if (sort === 'z-a') {
+    result = result.sort('-name');
+  }
+
   const recipes = await result;
   res.status(StatusCodes.OK).json({ recipes: recipes, count: recipes.length });
 };

@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const { search } = req.query;
+  const { search, sort } = req.query;
 
   const queryObject = {};
 
@@ -12,6 +12,10 @@ const getAllRecipes = async (req, res) => {
   }
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
+
+  if (sort === 'a-z') {
+    result = result.sort('name');
+  }
 
   const recipes = await result;
   res.status(StatusCodes.OK).json({ recipes: recipes, count: recipes.length });

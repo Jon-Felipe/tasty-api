@@ -48,6 +48,11 @@ const RecipeSchema = new mongoose.Schema(
       carbs: { type: Number, default: 0 },
       protein: { type: Number, default: 0 },
     },
+    cuisine: {
+      type: String,
+      enum: ['Mediterranean', 'European', 'Italian', 'Asian', 'Mexican'],
+      required: [true, 'Please provide the cuisine'],
+    },
     ingredients: {
       type: [String],
       required: [true, 'Please provide recipe ingredients'],

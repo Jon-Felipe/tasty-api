@@ -53,6 +53,11 @@ const RecipeSchema = new mongoose.Schema(
       enum: ['Mediterranean', 'European', 'Italian', 'Asian', 'Mexican'],
       required: [true, 'Please provide the cuisine'],
     },
+    mealType: {
+      type: String,
+      enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack'],
+      required: [true, 'Please provide the meal type'],
+    },
     ingredients: {
       type: [String],
       required: [true, 'Please provide recipe ingredients'],

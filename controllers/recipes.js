@@ -3,16 +3,18 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const { search, sort, cuisine } = req.query;
+  const { search, sort, cuisine, mealType } = req.query;
 
   const queryObject = {};
 
   if (search) {
     queryObject.name = { $regex: search, $options: 'i' };
   }
-
   if (cuisine) {
     queryObject.cuisine = { $regex: cuisine, $options: 'i' };
+  }
+  if (mealType) {
+    queryObject.mealType = { $regex: mealType, $options: 'i' };
   }
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
@@ -20,15 +22,12 @@ const getAllRecipes = async (req, res) => {
   if (sort === 'latest') {
     result = result.sort('-createdAt');
   }
-
   if (sort === 'oldest') {
     result = result.sort('createdAt');
   }
-
   if (sort === 'a-z') {
     result = result.sort('name');
   }
-
   if (sort === 'z-a') {
     result = result.sort('-name');
   }

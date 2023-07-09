@@ -13,6 +13,14 @@ const getAllRecipes = async (req, res) => {
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
 
+  if (sort === 'latest') {
+    result = result.sort('-createdAt');
+  }
+
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+
   if (sort === 'a-z') {
     result = result.sort('name');
   }

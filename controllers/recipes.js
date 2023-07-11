@@ -32,8 +32,10 @@ const getAllRecipes = async (req, res) => {
     result = result.sort('-name');
   }
 
-  const recipes = await result;
-  res.status(StatusCodes.OK).json({ recipes: recipes, count: recipes.length });
+  const limit = Number(req.query.limit) || 3;
+
+  const recipes = await result.limit(limit);
+  res.status(StatusCodes.OK).json({ recipes: recipes });
 };
 
 const getRecipe = async (req, res) => {

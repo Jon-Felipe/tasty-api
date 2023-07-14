@@ -34,7 +34,6 @@ const RecipeSchema = new mongoose.Schema(
       cookTime: { type: Number, default: 0 },
       additionalTime: { type: Number, default: 0 },
       totalTime: { type: Number, default: 0 },
-      servings: { type: Number, default: 0 },
       yield: { type: Number, default: 0 },
       difficulty: {
         type: String,

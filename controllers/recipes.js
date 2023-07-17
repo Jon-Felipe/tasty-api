@@ -41,6 +41,16 @@ const getAllRecipes = async (req, res) => {
   res.status(StatusCodes.OK).json({ recipes: recipes });
 };
 
+const getRecipesByCategory = async (req, res) => {
+  const { id: recipeCategory } = req.params;
+
+  const recipesByCategory = await Recipe.find({
+    category: { $regex: recipeCategory, $options: 'i' },
+  });
+
+  res.status(200).json({ recipes: recipesByCategory });
+};
+
 const getRecipe = async (req, res) => {
   const { id: recipeId } = req.params;
 
@@ -87,6 +97,7 @@ const deleteRecipe = async (req, res) => {
 
 module.exports = {
   getAllRecipes,
+  getRecipesByCategory,
   getRecipe,
   getUserRecipes,
   createRecipe,

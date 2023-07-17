@@ -5,6 +5,7 @@ const authenticateUser = require('../middleware/authentication');
 
 const {
   getAllRecipes,
+  getRecipesByCategory,
   getRecipe,
   getUserRecipes,
   createRecipe,
@@ -14,5 +15,6 @@ const {
 router.route('/').get(getAllRecipes).post(authenticateUser, createRecipe);
 router.route('/user-recipes').get(authenticateUser, getUserRecipes);
 router.route('/:id').get(getRecipe).delete(authenticateUser, deleteRecipe);
+router.route('/category/:id').get(getRecipesByCategory);
 
 module.exports = router;

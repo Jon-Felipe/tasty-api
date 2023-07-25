@@ -46,7 +46,7 @@ const getRecipesByCategory = async (req, res) => {
 
   const recipesByCategory = await Recipe.find({
     category: { $regex: recipeCategory, $options: 'i' },
-  });
+  }).populate('createdBy', 'name lastName');
 
   res.status(200).json({ recipes: recipesByCategory });
 };

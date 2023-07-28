@@ -35,10 +35,20 @@ const getAllRecipes = async (req, res) => {
     result = result.sort('-name');
   }
 
+  const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 6;
+  const skip = (page - 1) * limit;
 
-  const recipes = await result.limit(limit);
-  res.status(StatusCodes.OK).json({ recipes: recipes });
+  result = result.skip(skip).limit(limit);
+
+  const recipes = await result;
+
+  const totalRecipes = await Recipe.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalRecipes / limit);
+
+  res
+    .status(StatusCodes.OK)
+    .json({ recipes: recipes, totalRecipes, numOfPages });
 };
 
 const getRecipesByCategory = async (req, res) => {

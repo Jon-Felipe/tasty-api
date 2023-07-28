@@ -68,13 +68,20 @@ const getUserRecipes = async (req, res) => {
   const {
     user: { userId },
   } = req;
+  const { search, sort } = req.query;
+
+  let queryObject = { createdBy: userId };
+
+  if (search) {
+    queryObject.name = { $regex: search, $options: 'i' };
+  }
+
+  let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
 
   const limit = Number(req.query.limit) || 6;
 
-  const recipes = await Recipe.find({ createdBy: userId })
-    .populate('createdBy', 'name lastName')
-    .limit(limit);
-  res.status(StatusCodes.OK).json({ recipes });
+  const recipes = await result.limit(limit);
+  res.status(StatusCodes.OK).json({ recipes, count: recipes.length });
 };
 
 const createRecipe = async (req, res) => {

@@ -78,6 +78,19 @@ const getUserRecipes = async (req, res) => {
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
 
+  if (sort === 'latest') {
+    result = result.sort('-createdAt');
+  }
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+  if (sort === 'a-z') {
+    result = result.sort('name');
+  }
+  if (sort === 'z-a') {
+    result = result.sort('-name');
+  }
+
   const limit = Number(req.query.limit) || 6;
 
   const recipes = await result.limit(limit);

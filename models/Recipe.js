@@ -47,11 +47,6 @@ const RecipeSchema = new mongoose.Schema(
       carbs: { type: Number, default: 0 },
       protein: { type: Number, default: 0 },
     },
-    category: {
-      type: String,
-      enum: ['Pasta', 'Pizza', 'Vegan', 'Dessert', 'Fish', 'Meaty', 'Lamb'],
-      required: [true, 'Please provide the recipe category'],
-    },
     tag: {
       type: String,
       enum: [

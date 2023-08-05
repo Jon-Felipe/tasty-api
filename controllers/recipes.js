@@ -3,15 +3,12 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const { search, sort, category, cuisine, mealType, tag } = req.query;
+  const { search, sort, cuisine, mealType, tag } = req.query;
 
   const queryObject = {};
 
   if (search) {
     queryObject.name = { $regex: search, $options: 'i' };
-  }
-  if (category) {
-    queryObject.cuisine = { $regex: category, $options: 'i' };
   }
   if (cuisine) {
     queryObject.cuisine = { $regex: cuisine, $options: 'i' };

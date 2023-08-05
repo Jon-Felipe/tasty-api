@@ -52,6 +52,16 @@ const RecipeSchema = new mongoose.Schema(
       enum: ['Pasta', 'Pizza', 'Vegan', 'Dessert', 'Fish', 'Meaty', 'Lamb'],
       required: [true, 'Please provide the recipe category'],
     },
+    tag: {
+      type: String,
+      enum: [
+        'Quick and Easy',
+        'One Pot Dishes',
+        'Budget Friendly',
+        'Slow Cookers',
+      ],
+      required: [true, 'Please provide the recipe tag'],
+    },
     cuisine: {
       type: String,
       enum: ['Mediterranean', 'European', 'Italian', 'Asian', 'Mexican'],

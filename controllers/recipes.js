@@ -6,6 +6,7 @@ const getAllRecipes = async (req, res) => {
   const { search, sort, cuisine, mealType } = req.query;
 
   const queryObject = {};
+  let result;
 
   if (search) {
     queryObject.name = { $regex: search, $options: 'i' };
@@ -17,7 +18,17 @@ const getAllRecipes = async (req, res) => {
     queryObject.mealType = { $regex: mealType, $options: 'i' };
   }
 
-  let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
+  if (Object.keys(queryObject).length == 0) {
+    result = Recipe.find({}).populate('createdBy', 'name lastName');
+  } else {
+    result = Recipe.find({
+      $or: [
+        { name: queryObject.name },
+        { cuisine: queryObject.cuisine },
+        { mealType: queryObject.mealType },
+      ],
+    }).populate('createdBy', 'name lastName');
+  }
 
   if (sort === 'latest') {
     result = result.sort('-createdAt');

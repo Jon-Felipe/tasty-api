@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const { search, sort, cuisine, mealType } = req.query;
+  const { search, sort, cuisine, mealType, tag } = req.query;
 
   const queryObject = {};
   let result;
@@ -17,6 +17,9 @@ const getAllRecipes = async (req, res) => {
   if (mealType) {
     queryObject.mealType = { $regex: mealType, $options: 'i' };
   }
+  if (tag) {
+    queryObject.tag = { $regex: tag, $options: 'i' };
+  }
 
   if (Object.keys(queryObject).length == 0) {
     result = Recipe.find({}).populate('createdBy', 'name lastName');
@@ -26,6 +29,7 @@ const getAllRecipes = async (req, res) => {
         { name: queryObject.name },
         { cuisine: queryObject.cuisine },
         { mealType: queryObject.mealType },
+        { tag: queryObject.tag },
       ],
     }).populate('createdBy', 'name lastName');
   }

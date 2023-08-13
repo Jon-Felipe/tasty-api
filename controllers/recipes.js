@@ -16,9 +16,6 @@ const getAllRecipes = async (req, res) => {
   if (mealType && mealType !== 'all') {
     queryObject.mealType = mealType;
   }
-  if (tag) {
-    queryObject.tag = tag;
-  }
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');
 

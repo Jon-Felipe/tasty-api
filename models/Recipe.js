@@ -28,7 +28,6 @@ const RecipeSchema = new mongoose.Schema(
     prepTime: {
       type: Number,
       min: [1, 'Prep time cannot be less than 1'],
-      required: [true, 'Please provide the recipe prep time'],
     },
     cookTime: {
       type: Number,

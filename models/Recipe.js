@@ -36,6 +36,7 @@ const RecipeSchema = new mongoose.Schema(
     },
     servings: {
       type: Number,
+      min: [1, 'Servings cannot be less than 1'],
       required: [true, 'Please provide the recipe servings amount'],
     },
     difficulty: {

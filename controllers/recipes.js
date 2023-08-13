@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
-  const { search, sort, cuisine, mealType, tag } = req.query;
+  const { search, sort, cuisine, mealType } = req.query;
 
   const queryObject = {};
 

@@ -50,7 +50,7 @@ const RecipeSchema = new mongoose.Schema(
       enum: ['Easy', 'Medium', 'Hard', 'Challenging'],
       default: 'Easy',
     },
-    cuisines: {
+    cuisine: {
       type: String,
       enum: [
         'African',
@@ -66,7 +66,7 @@ const RecipeSchema = new mongoose.Schema(
       ],
       required: [true, 'Please provide the recipe cuisine'],
     },
-    dishTypes: {
+    dishType: {
       type: String,
       enum: ['breakfast', 'lunch', 'dinner', 'dessert'],
       required: [true, 'Please provide the dish type'],

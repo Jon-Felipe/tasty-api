@@ -1,5 +1,18 @@
 const mongoose = require('mongoose');
 
+const CookingDetailsSchema = new mongoose.Schema({
+  prepTime: {
+    type: Number,
+    min: [1, 'Prep time cannot be less than 1'],
+    required: [true, 'Please provide the recipe prep time'],
+  },
+  cookTime: {
+    type: Number,
+    min: [1, 'Cook time cannot be less than 1'],
+    required: [true, 'Please provide the recipe cook time'],
+  },
+});
+
 const RecipeSchema = new mongoose.Schema(
   {
     name: {
@@ -13,72 +26,63 @@ const RecipeSchema = new mongoose.Schema(
       required: [true, 'Please provide a description'],
       maxLength: [1000, 'Description can not be more than 1000 characters'],
     },
-    numOfRatings: {
-      type: Number,
-      default: 0,
-    },
-    averageRating: {
-      type: Number,
-      default: 0,
-    },
-    numOfReviews: {
-      type: Number,
-      default: 0,
-    },
     image: {
       type: String,
       default: '/uploads/example.jpeg',
     },
-    recipeDetails: {
-      prepTime: { type: Number, default: 0 },
-      cookTime: { type: Number, default: 0 },
-      additionalTime: { type: Number, default: 0 },
-      totalTime: { type: Number, default: 0 },
-      yield: { type: Number, default: 0 },
-      difficulty: {
-        type: String,
-        enum: ['Easy', 'Medium', 'Hard'],
-        default: 'Easy',
-      },
+    numRatings: {
+      type: Number,
+      default: 0,
     },
-    nutritionFacts: {
-      calories: { type: Number, default: 0 },
-      fat: { type: Number, default: 0 },
-      carbs: { type: Number, default: 0 },
-      protein: { type: Number, default: 0 },
+    numReviews: {
+      type: Number,
+      default: 0,
     },
-    tag: {
+    cookingDetails: {
+      type: CookingDetailsSchema,
+    },
+    servings: {
+      type: Number,
+      required: [true, 'Please provide the recipe servings amount'],
+    },
+    difficulty: {
+      type: String,
+      enum: ['Easy', 'Medium', 'Hard', 'Challenging'],
+      default: 'Easy',
+    },
+    cuisines: {
       type: String,
       enum: [
-        'Quick and Easy',
-        'One Pot Dishes',
-        'Budget Friendly',
-        'Slow Cookers',
+        'African',
+        'Asian',
+        'American',
+        'British',
+        'Chinese',
+        'European',
+        'Indian',
+        'Italian',
+        'Spanish',
+        'Thai',
       ],
-      required: [true, 'Please provide the recipe tag'],
+      required: [true, 'Please provide the recipe cuisine'],
     },
-    cuisine: {
+    dishTypes: {
       type: String,
-      enum: ['Mediterranean', 'European', 'Italian', 'Asian', 'Mexican'],
-      required: [true, 'Please provide the cuisine'],
-    },
-    mealType: {
-      type: String,
-      enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack'],
-      required: [true, 'Please provide the meal type'],
+      enum: ['breakfast', 'lunch', 'dinner', 'dessert'],
+      required: [true, 'Please provide the dish type'],
     },
     ingredients: {
       type: [String],
-      required: [true, 'Please provide recipe ingredients'],
+      required: [true, 'Please provide the recipe ingredients'],
     },
-    directions: {
+    instructions: {
       type: [String],
-      required: [true, 'Please provide recipe directions'],
+      required: [true, 'Please provide the recipe instructions'],
     },
     equipment: {
       type: [String],
     },
-    recipeTips: {
+    tips: {
       type: [String],
     },
     createdBy: {

@@ -1,18 +1,5 @@
 const mongoose = require('mongoose');
 
-const CookingDetailsSchema = new mongoose.Schema({
-  prepTime: {
-    type: Number,
-    min: [1, 'Prep time cannot be less than 1'],
-    required: [true, 'Please provide the recipe prep time'],
-  },
-  cookTime: {
-    type: Number,
-    min: [1, 'Cook time cannot be less than 1'],
-    required: [true, 'Please provide the recipe cook time'],
-  },
-});
-
 const RecipeSchema = new mongoose.Schema(
   {
     name: {
@@ -38,8 +25,15 @@ const RecipeSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    cookingDetails: {
-      type: CookingDetailsSchema,
+    prepTime: {
+      type: Number,
+      min: [1, 'Prep time cannot be less than 1'],
+      required: [true, 'Please provide the recipe prep time'],
+    },
+    cookTime: {
+      type: Number,
+      min: [1, 'Cook time cannot be less than 1'],
+      required: [true, 'Please provide the recipe cook time'],
     },
     servings: {
       type: Number,

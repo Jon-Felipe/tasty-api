@@ -24,6 +24,8 @@ const RecipeSchema = new mongoose.Schema(
     averageRating: {
       type: Number,
       default: 0,
+      min: [0, 'Average rating cannot be less than 0'],
+      max: [5, 'Average rating cannot be more than 5'],
     },
     numReviews: {
       type: Number,

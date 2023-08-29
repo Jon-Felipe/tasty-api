@@ -11,7 +11,7 @@ const getAllRecipes = async (req, res) => {
     queryObject.name = { $regex: search, $options: 'i' };
   }
   if (cuisine && cuisine != 'all') {
-    queryObject.cuisine = { $in: cuisine.split(',') };
+    queryObject.cuisine = cuisine;
   }
   if (dishType && dishType !== 'all') {
     queryObject.dishType = dishType;

@@ -11,10 +11,10 @@ const getAllRecipes = async (req, res) => {
     queryObject.name = { $regex: search, $options: 'i' };
   }
   if (cuisine && cuisine != 'all') {
-    queryObject.cuisine = cuisine;
+    queryObject.cuisine = { $in: cuisine.split(',') };
   }
   if (dishType && dishType !== 'all') {
-    queryObject.dishType = dishType;
+    queryObject.dishType = { $in: dishType.split(',') };
   }
 
   let result = Recipe.find(queryObject).populate('createdBy', 'name lastName');

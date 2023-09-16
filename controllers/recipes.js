@@ -3,6 +3,24 @@ const Recipe = require('../models/Recipe');
 const { NotFoundError } = require('../errors');
 
 const getAllRecipes = async (req, res) => {
+  const recipes = await Recipe.find({});
+  res.status(StatusCodes.OK).json({ recipes });
+};
+
+const getRecipe = async (req, res) => {
+  const { id: recipeId } = req.params;
+
+  const recipe = await Recipe.findById({ _id: recipeId }).populate(
+    'createdBy',
+    'name lastName'
+  );
+  if (!recipe) {
+    throw new NotFoundError(`No recipe found with id: ${recipeId}`);
+  }
+  res.status(StatusCodes.OK).json({ recipe });
+};
+
+const getFilteredRecipes = async (req, res) => {
   const { search, sort, cuisine, dishType } = req.query;
 
   const queryObject = {};
@@ -32,33 +50,20 @@ const getAllRecipes = async (req, res) => {
     result = result.sort('-name');
   }
 
-  const totalRecipes = await Recipe.countDocuments(queryObject);
-
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || totalRecipes;
+  const limit = Number(req.query.limit) || 12;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
 
   const recipes = await result;
+
+  const totalRecipes = await Recipe.countDocuments(queryObject);
   const numOfPages = Math.ceil(totalRecipes / limit);
 
   res
     .status(StatusCodes.OK)
     .json({ recipes: recipes, totalRecipes, numOfPages });
-};
-
-const getRecipe = async (req, res) => {
-  const { id: recipeId } = req.params;
-
-  const recipe = await Recipe.findById({ _id: recipeId }).populate(
-    'createdBy',
-    'name lastName'
-  );
-  if (!recipe) {
-    throw new NotFoundError(`No recipe found with id: ${recipeId}`);
-  }
-  res.status(StatusCodes.OK).json({ recipe });
 };
 
 const getUserRecipes = async (req, res) => {
@@ -124,6 +129,7 @@ const deleteRecipe = async (req, res) => {
 
 module.exports = {
   getAllRecipes,
+  getFilteredRecipes,
   getRecipe,
   getUserRecipes,
   createRecipe,
